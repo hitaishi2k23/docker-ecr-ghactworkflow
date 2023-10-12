@@ -18,7 +18,7 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     -   name: Build Docker image
-        run: docker build -t myapp:tag -f Dockerfile .
+        run: docker build -t myapp -f Dockerfile .
     -   name: Log in to Amazon ECR
         run: |
             aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 582662663083.dkr.ecr.us-east-1.amazonaws.com
