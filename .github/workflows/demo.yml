@@ -17,13 +17,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-
-    - name: Build and push Docker image to ECR
-      run: |
-        # Your Docker build and push commands here
-        docker build -t myapp .
-        docker tag myapp ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/myrepo
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/myrepo
+    -   name: Build Docker image
+        run: docker build -t myapp:tag -f /Dockerfile .
+    -   name: Log in to Amazon ECR
+        run: |
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 582662663083.dkr.ecr.us-east-1.amazonaws.com
+    -   name: Tag Docker image
+        run: docker tag myrepo:latest 582662663083.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest
+    -   name: Push Docker image to Amazon ECR
+        run: docker push 582662663083.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/myrepo:latest
