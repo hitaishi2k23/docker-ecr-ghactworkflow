@@ -26,7 +26,7 @@ jobs:
 
     -   name: Log in to Amazon ECR
         run: |
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 582662663083.dkr.ecr.${{ secrets.AWS_REGION }} .amazonaws.com
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 582662663083.dkr.ecr.us-east-1.amazonaws.com
     -   name: Tag Docker image
         run: docker tag myrepo 582662663083.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/myrepo
 
