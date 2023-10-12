@@ -22,7 +22,7 @@ jobs:
             ls
 
     -   name: Build Docker image
-        run: docker build -t myapp .
+        run: docker build -t myrepo .
 
     -   name: Log in to Amazon ECR
         run: |
